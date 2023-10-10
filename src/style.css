@@ -1,0 +1,29 @@
+body{
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    background-color: bisque;
+}
+:picture-in-picture :hover{
+    background-color: azure;
+}
+#cotainer{
+    position: absolute;
+    top: 50vw;
+    left: 50vh;
+}
+
+#target{
+    width: 300px;
+    height: 250px;
+    position: relative;
+}
+
+#pip{
+    position: relative;
+    background-color: cadetblue;
+}
+
+#canvas2d{
+    display: none;
+}

@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <video id="video" src="./sample-5s.mp4" style="width: 300px; height: 250px;"></video>
+
+<button id="togglePipButton"> PIP</button>
+
+<script>
+  const video = document.getElementById("video");
+  const togglePipButton = document.getElementById("togglePipButton");
+
+  // Hide button if Picture-in-Picture is not supported or disabled.
+  togglePipButton.hidden =
+    !document.pictureInPictureEnabled || video.disablePictureInPicture;
+
+  togglePipButton.addEventListener("click", async () => {
+    // If there is no element in Picture-in-Picture yet, let’s request
+    // Picture-in-Picture for the video, otherwise leave it.
+    try {
+      if (document.pictureInPictureElement) {
+        await document.exitPictureInPicture();
+      } else {
+        await video.requestPictureInPicture();
+      }
+    } catch (err) {
+      // Video failed to enter/leave Picture-in-Picture mode.
+    }
+  });
+
+
+  const actionHandlers = new Map([
+    ['seekto', ()=>{}],
+    ['pause', ()=>{console.log("paused")}]
+  ])
+
+  for (const [action, handler] of actionHandlers){
+    try{
+        navigator.mediaSession.setActionHandler(action, handler);
+    }catch(error){
+        console.log(`${error}`);
+    }
+  }
+
+
+  navigator.mediaSession.setActionHandler('previoustrack', function() {
+  console('> User clicked "Previous Track" icon.');
+ 
+  });
+
+
+</script>
+</body>
+</html>
