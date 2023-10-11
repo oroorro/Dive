@@ -15,8 +15,9 @@ body{
 
 #target{
     width: 300px;
- 
+    /* if we need user to never get control of the video then this will be needed display: none; */
     position: relative;
+   
 }
 
 #pip{
