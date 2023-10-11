@@ -1,5 +1,4 @@
 
-console.log("yello");
 const target = document.getElementById('target');
 const canvas2d = document.getElementById("canvas2d");
 const ctx = canvas2d.getContext('2d');
@@ -18,10 +17,12 @@ let userState = {level:null, duration: null, }
 const stream = canvas2d.captureStream();
 target.srcObject = stream;
 
-
+/*
+does not work since the video is paused when we start the website
 if(target.paused){
   console.log("paused")
 }
+*/
 
 target.addEventListener("leavepictureinpicture", (event) => {
   //target.play();
