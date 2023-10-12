@@ -1,0 +1,39 @@
+#testCalendar{
+    position: absolute;
+    top: 200px;
+    left: 200px;
+
+}
+
+ul{
+    list-style: none;
+}
+li{
+    margin: auto;
+}
+
+.firstweek{
+    display: inline-block;
+    background-color: tomato;
+    margin-right: 20px; /* add spacing between items */
+    padding: 10px;
+}
+
+.firstweek:hover {
+    background-color: #938482;
+}
+
+#day1{
+    list-style-position:inside;
+    border: 1px solid black;
+   
+}
+
+#dayObj{
+    width: 120px;
+    height: 80px;
+    justify-content:space-around;
+}
+
+
+   
