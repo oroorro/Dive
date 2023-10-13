@@ -24,20 +24,49 @@ test = new Date(currYear, currMonth + 1, 0).getDate(); //this is current month's
 console.log(firstDayOfMonth, lastDateOfMonth, test);
 //event cases from prev month button and next month button 
 
+//on the full size screen, make list of days on top of calendar
+const dayList = document.getElementById("dayList");
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+for (let index = 0; index < days.length; index++) {
+
+    const li = document.createElement("li");
+    const day = document.createElement("div");
+    day.innerText = days[index]; 
+    day.style.width = "100px"
+    day.style.height = "20px"
+    day.style.backgroundColor ="purple";
+    day.style.textAlign = "center";
+    day.style.marginTop = "-17px"
+
+    li.appendChild(day);
+    dayList.appendChild(li);
+}
+
+
 
 //testing how display will work with data from DB 
+const ul = document.getElementById("list");
 
-let day1 = document.getElementById("day1");
+//      ---------------  dayObj
+//      |   ---------------day--
+//      |   |  -----------dayMax----------------
+//      |   |  | highestLvl  highestLvlDuration |
+//          |   --------------------------------- 
+//          |             totalDuration                
+//           ---------------
 let cnt = 1;
-while(day1 != null){
+for (let index = 0; index < 42; index++) {
+    const li = document.createElement("li");
+    li.setAttribute("class", "list");
+
     const dayObj = document.createElement("div");
     dayObj.setAttribute("id", "dayObj");
-    
+
     const dayMax = document.createElement("div");
-    
     const day = document.createElement("div");
     day.innerText = "" + cnt++; 
-    day.style.width = "120px"
+    day.style.width = "100px"
     day.style.height = "20px"
     day.style.backgroundColor ="brown";
     day.style.textAlign = "center";
@@ -59,14 +88,11 @@ while(day1 != null){
     dayObj.append(day, dayMax, totalDuration);
     dayObj.style.display = "flex";
     dayObj.style.flexDirection="column";
-    
-    day1.append(dayObj);
-    const prev = day1;
-    day1 = day1.nextElementSibling;    
 
-    if(day1 == null && prev.parentNode.parentNode.nextElementSibling != null){
-        day1 = prev.parentNode.parentNode.nextElementSibling.children[0].children[0];
-    } 
+
+    li.append(dayObj);
+    ul.append(li);
 }
+
 
 
