@@ -12,10 +12,17 @@ li{
     margin: auto;
 }
 
+#firstWeek1st{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
 .firstweek{
-    display: inline-block;
+    flex: 1;
+    display: inline-block; 
     background-color: tomato;
-    margin-right: 20px; /* add spacing between items */
+    /*margin-right: 20px;  add spacing between items */
     padding: 10px;
 }
 
@@ -30,10 +37,42 @@ li{
 }
 
 #dayObj{
-    width: 120px;
+    width: 100px;
     height: 80px;
     justify-content:space-around;
 }
 
 
-   
+
+
+
+
+
+
+
+/*   */
+
+#testDay{
+    width: 100px;
+    height: 80px;
+}
+.testweek{
+    /*display: inline-block; */
+    list-style: none;
+    flex: 0 0 23.333333%;
+    background-color: gold;
+    list-style-position:inside;
+    border: 1px solid black;
+}
+
+#testListContainer{
+    position: absolute;
+    top: 500px;
+    left: 200px;
+}
+
+#testListContainer ul{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+}

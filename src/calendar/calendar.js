@@ -1,4 +1,5 @@
 
+
 const calendarData = document.getElementById("calendar-data");
 
 
@@ -26,36 +27,46 @@ console.log(firstDayOfMonth, lastDateOfMonth, test);
 
 //testing how display will work with data from DB 
 
-const day1 = document.getElementById("day1");
+let day1 = document.getElementById("day1");
+let cnt = 1;
+while(day1 != null){
+    const dayObj = document.createElement("div");
+    dayObj.setAttribute("id", "dayObj");
+    
+    const dayMax = document.createElement("div");
+    
+    const day = document.createElement("div");
+    day.innerText = "" + cnt++; 
+    day.style.width = "120px"
+    day.style.height = "20px"
+    day.style.backgroundColor ="brown";
+    day.style.textAlign = "center";
+    day.style.marginTop = "-17px"
+    
+    const highestLvl = document.createElement("text");
+    highestLvl.innerText = "9"
+    const highestLvlDuration = document.createElement("div");
+    highestLvlDuration.innerText = "19m:42s"
+    
+    dayMax.append(highestLvl, highestLvlDuration);
+    dayMax.style.display="flex";
+    dayMax.style.justifyContent = "space-around"
+    
+    const totalDuration = document.createElement("text");
+    totalDuration.innerText = "178m:29s";
+    totalDuration.style.textAlign = "center";
+    
+    dayObj.append(day, dayMax, totalDuration);
+    dayObj.style.display = "flex";
+    dayObj.style.flexDirection="column";
+    
+    day1.append(dayObj);
+    const prev = day1;
+    day1 = day1.nextElementSibling;    
 
-const dayObj = document.createElement("div");
-dayObj.setAttribute("id", "dayObj");
+    if(day1 == null && prev.parentNode.parentNode.nextElementSibling != null){
+        day1 = prev.parentNode.parentNode.nextElementSibling.children[0].children[0];
+    } 
+}
 
-const dayMax = document.createElement("div");
 
-const day = document.createElement("div");
-day.innerText = "1"
-day.style.width = "120px"
-day.style.height = "20px"
-day.style.backgroundColor ="brown";
-day.style.textAlign = "center";
-day.style.marginTop = "-17px"
-
-const highestLvl = document.createElement("text");
-highestLvl.innerText = "9"
-const highestLvlDuration = document.createElement("div");
-highestLvlDuration.innerText = "19m:42s"
-
-dayMax.append(highestLvl, highestLvlDuration);
-dayMax.style.display="flex";
-dayMax.style.justifyContent = "space-around"
-
-const totalDuration = document.createElement("text");
-totalDuration.innerText = "178m:29s";
-totalDuration.style.textAlign = "center";
-
-dayObj.append(day, dayMax, totalDuration);
-dayObj.style.display = "flex";
-dayObj.style.flexDirection="column";
-
-day1.append(dayObj);
