@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+    This file shows an example of using gif as an image, coverted data of mp4 fro that 
+    gif with picture in picture mode.
+    shows how it holds play button after pause button
+-->
+</head>
+<body>
+    <!--
+    <video id="video" autoplay="autoplay" loop="loop" width="400" height="300">
+        <source src="./giphy.mp4" type="video/mp4" />
+        <img src="./giphy.gif" width="400" height="300" />
+    </video>
+    -->
+    <video id="video" poster="./Dyle.png" autoplay="autoplay" loop="loop" width="400" height="300">
+        <source src="./giphy.mp4" type="video/mp4" />
+       
+    </video>
+
+<button id="togglePipButton"> PIP</button>
+
+<script>
+    const video = document.getElementById("video");
+    const togglePipButton = document.getElementById("togglePipButton");
+  
+    // Hide button if Picture-in-Picture is not supported or disabled.
+    togglePipButton.hidden =
+      !document.pictureInPictureEnabled || video.disablePictureInPicture;
+  
+    togglePipButton.addEventListener("click", async () => {
+      // If there is no element in Picture-in-Picture yet, let’s request
+      // Picture-in-Picture for the video, otherwise leave it.
+      try {
+        if (document.pictureInPictureElement) {
+          await document.exitPictureInPicture();
+        } else {
+          await video.requestPictureInPicture();
+        }
+      } catch (err) {
+        // Video failed to enter/leave Picture-in-Picture mode.
+      }
+    });
+  
+  
+    const actionHandlers = new Map([
+      ['seekto', ()=>{}],
+      ['pause', ()=>{console.log("paused")}]
+    ])
+  
+    for (const [action, handler] of actionHandlers){
+      try{
+          navigator.mediaSession.setActionHandler(action, handler);
+      }catch(error){
+          console.log(`${error}`);
+      }
+    }
+  
+  
+    navigator.mediaSession.setActionHandler('previoustrack', function() {
+    console('> User clicked "Previous Track" icon.');
+   
+    });
+  
+    navigator.mediaSession.setActionHandler("pause",()=>{
+        console.log("pause");
+        video.pause();
+    })
+
+  
+  </script>
+
+</body>
+</html>

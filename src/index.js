@@ -3,13 +3,64 @@ const target = document.getElementById('target');
 const canvas2d = document.getElementById("canvas2d");
 const ctx = canvas2d.getContext('2d');
 const playVidButton = document.getElementById("playVidButton");
-
+const pauseVidButton = document.getElementById("pauseVidButton");
 
 const colorList = ["#81dbc5", "#76b6db", "#7691e3", "#7d76e3"]
 let flag = false;
 let dim = 1;
 let reachedTopFlag = false;
 
+var state = {
+
+  //stores {level: number, duration: Time}
+  passedList:[],
+  //level 0 to 999
+  currentLevel: 0,
+
+  // Minute: seconds format
+  currentDuration: 0,
+
+  pausedFlag: false,
+
+  resumeFlag: false,
+
+  quitFlag: false,
+
+  accumTime: null,
+
+  newLevelFlag: false,
+
+  //starts new level and store previous level, time information to a passedList List.
+  startNewLevel: function(){
+
+    //getting new time for the new level 
+    const startTime = new Date();
+
+    //save previous level into passedLevel List 
+    const passedLevel = {level: currentLevel, duration: accumTime - startTime};
+    this.passedList.push(passedLevel);
+
+    //set current level by getting current level + 1
+    this.currentLevel++;
+
+    //start new time interval 
+    this.accumTime = new Date();
+    
+    //let the screen to have the new level 
+
+
+
+  },
+
+  pauseCurrentLevel: function(){
+
+  },
+
+  quitLevel: function(){
+
+  },
+
+}
 
 
 let userState = {level:null, duration: null, }
@@ -25,11 +76,13 @@ if(target.paused){
 */
 
 target.addEventListener("leavepictureinpicture", (event) => {
-  //target.play();
-  console.log("left");
-  //canvas2d.style.display = "block";
-  let customEvent = new Event("click");
-  playVidButton.dispatchEvent(customEvent);
+  //target.play(); Does not work 
+  //making custom event works 
+  setTimeout(()=>{
+    let customEvent = new Event("click");
+    playVidButton.dispatchEvent(customEvent);
+  },1);
+ 
   canvas2d.style.display="block";
 });
 
@@ -40,17 +93,27 @@ function playVid() {
 
 function pauseVid() { 
   target.pause(); 
+  state.pausedFlag = true;
+
+  /*
+  setTimeout(()=>{
+    let customEvent = new Event("click");
+    playVidButton.dispatchEvent(customEvent);
+  }, 3000);
+  */
 } 
 
 
 const btn = document.getElementById('pip');
 if( target.requestPictureInPicture ) {
   btn.onclick = e => target.requestPictureInPicture();
+  state.pausedFlag = false;
 }
 else {
   btn.disabled = true;
 }
 
+/*
 const actionHandlers = new Map([
     ['seekto', ()=>{}],
   ])
@@ -62,24 +125,25 @@ const actionHandlers = new Map([
         console.log(`${error}`);
     }
   }
-
+*/
 
 navigator.mediaSession.setActionHandler('previoustrack', function() {
     console.log('> User clicked "Previous Track" icon.');
     on();
+
 });
 
 navigator.mediaSession.setActionHandler('nexttrack', function() {
     console.log('> User clicked "Next Track" icon.');
+    state.newLevelFlag = true;
 });
 
-navigator.mediaSession.setActionHandler("seekforward",()=>{
-  console.log("seekforward");
-})
 
 
 navigator.mediaSession.setActionHandler("pause",()=>{
   console.log("pause");
+  let customEvent = new Event("click");
+  pauseVidButton.dispatchEvent(customEvent);
 })
 
 
@@ -112,33 +176,6 @@ function on(){
 }
 
 
-var state = {
-
-  passedList:[],
-  //level 0 to 999
-  currentLevel: 0,
-
-  // Minute: seconds format
-  currentDuration: 0,
-
-  pausedFlag: false,
-
-  resumeFlag: false,
-
-  quitFlag: false,
-
-  startNewLevel: function(){
-
-    //set current level by getting current level + 1
-
-    //start new time interval 
-
-
-
-
-  }
-
-}
 
 
 
@@ -168,7 +205,7 @@ var paint = {
         ctx.fillRect(0, color.coordY, canvas2d.width, canvas2d.height);
         //if current painting color has reached at the top of canvas, video; make it as the background;
         ctx.fillStyle = "white";
-        ctx.fillText(color.colorName, canvas2d.width/3, (y + canvas2d.height) / 2);
+        ctx.fillText(color.colorName, canvas2d.width/4, (y + canvas2d.height) / 2);
 
 
         if(color.coordY <= 0 ) paint.backgroundColor = color.colorName;
@@ -200,17 +237,35 @@ var paint = {
         flag = false;
       }
 
+      if(state.newLevelFlag){
+
+        state.newLevelFlag = false;
+
+        //draw next level's color and text with new time 
+      }
+
+
       if(this.colorsToPaint.length > 0){
         //reduce y coords seeminglessy to all color varaibles' y coord 
         this.colorsToPaint.forEach(color=> {
-          color.coordY -= dim;
+
+          //stop raising color bar if user clicked on pause button
+          if(!state.pausedFlag){
+            color.coordY -= dim;
+          }
+          
         })
         //call paint function to draw rect 
         this.paintNextLevel(this.colorsToPaint);
       }
 
-      y -= dim;
-      dim += 0.0001;
+
+
+      if(!state.pausedFlag){
+        y -= dim;
+        dim += 0.0001;
+      }
+      
       
       //ctx.fillStyle = "white";
       //ctx.fillText( new Date().toTimeString().split(' ')[0], canvas2d.width / 2, canvas2d.height / 2 );
