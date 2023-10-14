@@ -142,8 +142,41 @@ navigator.mediaSession.setActionHandler('nexttrack', function() {
 
 navigator.mediaSession.setActionHandler("pause",()=>{
   console.log("pause");
-  let customEvent = new Event("click");
+  const customEvent = new Event("click");
   pauseVidButton.dispatchEvent(customEvent);
+
+  const dataURL = canvas2d.toDataURL("image/png");
+  var a = document.createElement('a');
+  // Set the link to the image so that when clicked, the image begins downloading
+  a.href = dataURL
+
+  //post to server with file information 
+  fetch('/home/download', {
+    method: 'POST',
+    body: JSON.stringify({
+        title: 'foo',
+        body: 'bar',
+        userId: 1,
+    }),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+    },
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json))
+    .catch(error => {
+        console.log(error)
+    })
+  //wait to post call to return 
+
+  //use that information to update the interface 
+
+  console.log(dataURL);
+  // Specify the image filename
+  //a.download = 'canvas-download.jpeg';
+  // Click on the link to set off download
+  //a.click();
+
 })
 
 

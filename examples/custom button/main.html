@@ -2,10 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<!-- tested output2.mp4; a video that was created by ffmpeg can have play/pause buttons
+    It had 3 sec duration.
+    On the other hand, output.mp4 that was creatd by only using single picture which had 1sec
+    duration could not show play button after clicking on pause button.
+-->
 </head>
 <body>
-    <video id="video" src="./sample-5s.mp4" style="width: 300px; height: 250px;"></video>
+    <video id="video" src="./output2.mp4" style="width: 300px; height: 250px;"></video>
 
 <button id="togglePipButton"> PIP</button>
 
@@ -50,6 +54,17 @@
   console('> User clicked "Previous Track" icon.');
  
   });
+
+  navigator.mediaSession.setActionHandler("pause",()=>{
+    video.pause();
+    console.log("pause");
+  });
+
+  navigator.mediaSession.setActionHandler("play",()=>{
+    video.play();
+    console.log("play");
+  });
+
 
 
 </script>
