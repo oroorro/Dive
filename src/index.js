@@ -141,6 +141,7 @@ navigator.mediaSession.setActionHandler('nexttrack', function() {
 
 
 navigator.mediaSession.setActionHandler("pause",()=>{
+
   console.log("pause");
   const customEvent = new Event("click");
   pauseVidButton.dispatchEvent(customEvent);
@@ -150,20 +151,19 @@ navigator.mediaSession.setActionHandler("pause",()=>{
   // Set the link to the image so that when clicked, the image begins downloading
   a.href = dataURL
 
+  const temp = { title: 'foo', url: dataURL, userId: 1,};
+
+  console.log(JSON.stringify(temp));
   //post to server with file information 
   fetch('/home/download', {
     method: 'POST',
-    body: JSON.stringify({
-        title: 'foo',
-        body: 'bar',
-        userId: 1,
-    }),
+    body: JSON.stringify(temp),
     headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
     },
-    })
+  })
     .then((response) => response.json())
-    .then((json) => console.log(json))
+    //.then((json) => console.log(json))
     .catch(error => {
         console.log(error)
     })
@@ -182,16 +182,30 @@ navigator.mediaSession.setActionHandler("pause",()=>{
 
 navigator.mediaSession.setActionHandler("play",()=>{
   console.log("play");
+  target.play();
 })
 
 
-
+let tempFlag = false;
 
 try {
   navigator.mediaSession.setActionHandler("nexttrack", () => {
-    log('> User clicked "Next Slide" icon.');
-    slideNumber++;
-    updateSlide();
+    console.log('> User clicked "Next Slide" icon.');
+    //testing switching video
+    if(tempFlag){
+      target.srcObject  = stream;
+      
+    }else{
+      target.srcObject  = null;
+      //size changes when switching into video format
+      document.getElementById("source").src = "./output2.mp4";
+      
+      target.load();
+      target.pause();
+
+    }
+    tempFlag = tempFlag == true ? false : true;
+    
   });
 } catch (error) {
   log('Warning! The "nextslide" media session action is not supported.');
