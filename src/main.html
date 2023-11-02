@@ -10,7 +10,8 @@
         <div id="backgroundContainer">
             <div id="title">
                 <div id="logo"></div>
-                <div id="profile"></div>
+
+                <button id="logout" onclick="logoutHandler()">logout</button>
                 <div id="QA"></div>
             </div>
             <canvas id="canvas2d"></canvas>
@@ -28,8 +29,8 @@
             <div id="calendarButtonContainer">
                 <div id="currentTime">2022 10 13</div>
                 <div id="calendarButtons">
-                    <button>prev</button>
-                    <button>next</button>
+                    <button onclick="prevButtonHandler()">prev</button>
+                    <button onclick="nextButtonHandler()">next</button>
                 </div>
             </div>
             <div id="listcontainer">

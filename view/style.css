@@ -1,0 +1,150 @@
+
+body{
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    background-color: bisque;
+}
+:picture-in-picture :hover{
+    background-color: azure;
+}
+#backgroundContainer{
+    display: flex; justify-content: center; align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#title{
+    position: relative;
+    left: 0;
+    top: 0%;
+    width: 100vw;
+    height: 50px;
+    background-color: rgba(250, 142, 142, 0.733);
+    display: flex;
+}
+
+#logo{
+    width: 40px;
+    height: 50px;
+    background-color: aqua;
+}
+
+#profile{
+    position: absolute;
+    width: 40px;
+    height: 50px;
+    background-color: blue;
+    right: 60px;
+}
+
+#QA{
+    width: 40px;
+    height: 50px;
+    background-color: palegoldenrod;
+    position: absolute;
+    right: 20px;
+}
+
+#videoContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+#videoButtonContainer{
+    display: flex;
+    flex-direction: row; 
+}
+
+#calendarButtonContainer{
+    display: flex;
+    flex-direction: row; 
+    background-color: aquamarine;
+    width: 650px;
+}
+
+
+#currentTime{
+    
+}
+
+#calendarButtons{
+    position: absolute;
+    right: 0px;
+}
+
+
+#currentTime{
+    width: 100px;
+    background-color: rgb(233, 233, 95);
+}
+
+#dayHeader ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+#list{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+#calendarContainer{
+    width: 740px;
+}
+
+#dayObj{
+    width: 100px;
+    height: 80px;
+    justify-content:space-around;
+    background-color: tomato;
+}
+
+
+#target{
+    width: 400px;
+    /* if we need user to never get control of the video then this will be needed display: none; */
+    position: relative;
+   
+}
+
+#pip{
+    position: relative;
+    background-color: cadetblue;
+}
+
+#canvas2d{
+    display: none;
+
+}
+
+@media screen and (min-width: 620px) and (max-width: 700px){
+    #dayObj{
+        background-color: rgb(115, 100, 252);
+    }
+    #listcontainer{
+        width: 640px;
+    }
+    #background{
+        display: flex; justify-content: center; align-items: center;
+    }
+}
+
+
+
+@media screen and (max-width: 620px) and (min-width: 0px){
+    #dayObj{
+        background-color: rgb(252, 123, 100);
+    }
+    #listcontainer{
+        width: 440px;
+        position: relative;    /* the trick to move flex elements to desired position */
+        left: 30px;
+    }
+    #background{
+        display: flex; justify-content: center; align-items: center;
+    }
+}
+

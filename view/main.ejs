@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Dive </title>
+        <link rel="stylesheet" type="text/css" href="./style.css">
+       
+    </head>
+<body>
+        
+    <div id="backgroundContainer">
+        <div id="title">
+            <div id="logo"></div>
+
+            <% if (userName) { %>
+                <div><%= userName %></div>
+            <% } %>
+            <button id="logout" onclick="logoutHandler()">logout</button>
+            <div id="QA"></div>
+        </div>
+        <canvas id="canvas2d"></canvas>
+        <div id="videoContainer">
+            <video id="target" autoplay="true" controls muted >
+                <source id="source" src=""/>
+            </video>
+            
+            <div id="videoButtonContainer">
+                <button id="pip"> PIP </button>
+                <button id="playVidButton"  onclick="playVid()" type="button">Play Video</button>
+                <button id="pauseVidButton" onclick="pauseVid()" type="button">Pause </button>
+            </div>
+        </div>
+        <div id="calendarButtonContainer">
+            <div id="currentTime">2022 10 13</div>
+            <div id="calendarButtons">
+                <button onclick="prevButtonHandler()">prev</button>
+                <button onclick="nextButtonHandler()">next</button>
+            </div>
+        </div>
+        <div id="listcontainer">
+            <div id="dayHeader">
+                <ul id="dayList">  </ul>
+            </div>
+            <div id="calendarContainer">
+                <ul id="list">  </ul>
+            </div>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+   
+</body>
+
+</html>

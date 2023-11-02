@@ -33,19 +33,49 @@
             <div class="container">
                 <form action="/form_receiver" method="post">
                     <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" required>
+                    <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
                 
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
+                    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
                 
                     <button type="submit">Login</button>
                     <label>
                     <input type="checkbox" checked="checked" name="remember"> Remember me
                     </label>
                 </form>
-              </div>
-
+                
+            </div>
+            <button id="press"> press</button>
         </div>
+        <script>
+
+            document.getElementById("press").addEventListener("click",()=>{
+
+                const temp = { userName:  document.getElementById("uname").value, 
+                               passWord: document.getElementById("psw").value};
+
+                fetch('/form_receiver', {
+                    method: 'POST',
+                    body: JSON.stringify(temp),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then((response) => response.json())
+                .then(
+                    (json) => (function(json){
+                        if(json == "wrong password"){
+
+                        }
+                    })
+                    )
+                .catch(error => {
+                    console.log(error)
+                })
+
+            });
+
+        </script>
     </body>
 
 </html>
